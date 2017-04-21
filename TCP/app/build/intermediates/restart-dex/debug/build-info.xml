@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<instant-run
+    abi="x86_64,x86"
+    api-level="24"
+    density="xhdpi"
+    format="8"
+    plugin-version="2.2.2"
+    timestamp="137360567220741"
+    token="7789976222371403893"
+    verifier="FULL_BUILD_REQUESTED" >
+
+    <task
+        name="javac"
+        duration="1175" />
+    <task
+        name="instant-run-dex"
+        duration="0" />
+    <task
+        name="instant-run-transform"
+        duration="227" />
+    <task
+        name="verifier"
+        duration="19" />
+
+    <artifact
+        location="/Users/michaelspearing/Documents/The_University_of_Texas/2016_Fall/EE461L/TCP/app/build/outputs/apk/app-debug.apk"
+        type="MAIN" />
+
+    <build
+        timestamp="137360567220741"
+        verifier="FULL_BUILD_REQUESTED" >
+        <artifact
+            location="/Users/michaelspearing/Documents/The_University_of_Texas/2016_Fall/EE461L/TCP/app/build/outputs/apk/app-debug.apk"
+            type="MAIN" />
+    </build>
+
+</instant-run>
