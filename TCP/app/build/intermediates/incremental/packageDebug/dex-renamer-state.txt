@@ -1,7 +1,0 @@
-#Fri Apr 21 18:27:58 CDT 2017
-base.0=/Users/michaelspearing/Documents/The_University_of_Texas/2016_Fall/EE461L/TCP/app/build/intermediates/transforms/dex/debug/folders/1000/10/instant-run-bootstrap_89f4cde5b26614051da2b2947732dbfedc3f861e
-renamed.1=classes2.dex
-renamed.0=classes.dex
-file.1=/Users/michaelspearing/Documents/The_University_of_Texas/2016_Fall/EE461L/TCP/app/build/intermediates/transforms/dex/debug/folders/1000/10/instant-run_d4ffec0243696a9b0bacff8db7d3fc28de641477/classes.dex
-base.1=/Users/michaelspearing/Documents/The_University_of_Texas/2016_Fall/EE461L/TCP/app/build/intermediates/transforms/dex/debug/folders/1000/10/instant-run_d4ffec0243696a9b0bacff8db7d3fc28de641477
-file.0=/Users/michaelspearing/Documents/The_University_of_Texas/2016_Fall/EE461L/TCP/app/build/intermediates/transforms/dex/debug/folders/1000/10/instant-run-bootstrap_89f4cde5b26614051da2b2947732dbfedc3f861e/classes.dex
