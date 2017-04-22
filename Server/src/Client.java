@@ -8,18 +8,18 @@ public class Client {
 		try{
 			String hostAddress;
 			int tcpPort;
-			
+
 			hostAddress = "localhost";//args[0];
 			tcpPort= 8080; //Integer.parseInt(args[1]);
 			System.out.println("[CLIENT] DIRECTIONS RECIEVED: "+args[0] +":"+ args[1]);
 			Scanner sc = new Scanner(System.in);
 			//System.out.println("scanner initiated");
-			
+
 			// Connect the client with the coordinator
 			Socket greeter = new Socket(hostAddress, tcpPort);
 			PrintStream greeterOut = new PrintStream(greeter.getOutputStream());
 			Scanner greeterIn = new Scanner(greeter.getInputStream());
-			
+
 			// Subscribe the client to a chat room
 			// Get the room, one per line
 			String room;
@@ -43,54 +43,46 @@ public class Client {
 			greeterOut.close();
 			greeterIn.close();
 			System.out.println("[CLIENT]: SALESREP RELEASED");
-			Socket server = new Socket(hostAddress, roomPort);
-			PrintStream serverOut = new PrintStream(server.getOutputStream());
-			Scanner serverIn = new Scanner(server.getInputStream());
-			System.out.println("[CLIENT]: CONNECTED TO ROOM");
-			
+			//Socket server = new Socket(hostAddress, roomPort);
+			//PrintStream serverOut = new PrintStream(server.getOutputStream());
+			//Scanner serverIn = new Scanner(server.getInputStream());
+			System.out.println("[CLIENT]: WAITING FOR MESSAGE");
 			while(sc.hasNext()){
 				//System.out.println("inside while loop");
-				
 				String message = sc.nextLine();
 				//System.out.println("msg = "+message);
 				// TODO This works up to here
-				System.out.println("[CLIENT] sending to server: " +message);
-				String fromServer = tcpSend(message, hostAddress, tcpPort);
-				System.out.println("[CLIENT] received from server: " + fromServer);
+				System.out.println("[CLIENT] POSTING: " +message);
+				tcpSend(message, hostAddress, roomPort);
+				//System.out.println("[CLIENT] RECIEVED NEW: " + fromServer);
 			}
 			sc.close();
-			serverOut.close();
-			serverIn.close();
-			server.close();
+			//serverOut.close();
+			//serverIn.close();
+			//server.close();
 		}
 		catch(Exception e){
 			System.err.println(e);
 		}		
 	}
-	
-	
+
 	/// Parameters: (1) message to send (2) client's hostAddress (3) client's port
 	/// Returns: message received from Server
-	private static String tcpSend(String msg, String hostAddress, int tcpPort)
-		throws IOException{
+	private static void tcpSend(String msg, String hostAddress, int tcpPort)
+			throws IOException{
 		Socket server = new Socket(hostAddress, tcpPort);
 		PrintStream pout = new PrintStream(server.getOutputStream());
 		Scanner serverIn = new Scanner(server.getInputStream());
-		
+		System.out.println("[CLIENT]: CONNECTED TO ROOM");
+		pout.println("Author 1");
+		pout.println(System.currentTimeMillis());
 		pout.println(msg);
 		pout.flush();
-		
-		while(!serverIn.hasNext()){}
-		
-		String msgFromServer = serverIn.nextLine();
-		while(serverIn.hasNextLine()){
-			msgFromServer += "\n" + serverIn.nextLine();
-		}
-		
 		serverIn.close();
+		pout.close();
 		server.close();
-		
-		return msgFromServer;
-		
+
 	}
+
+
 }

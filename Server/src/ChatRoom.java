@@ -4,12 +4,14 @@ import java.net.Socket;
 import java.util.ArrayList;
 
 public class ChatRoom extends Thread {
-	ArrayList<User> members;
-	String topic;
-	String description;
-	int port;
+	private ArrayList<User> members;
+	private String topic;
+	private String description;
+	private ArrayList<Message> content;
+	private int port;
 
 	public ChatRoom(String top, int port){
+		this.content = new ArrayList<Message>();
 		this.topic=top;
 		this.description=new String("");
 		this.members = new ArrayList<User>();	
@@ -17,6 +19,7 @@ public class ChatRoom extends Thread {
 		System.out.println("[CHATROOM " + topic + "]: ACTIVATING ON PORT " + port);
 	}
 	public ChatRoom(String top, String about, int port){
+		this.content = new ArrayList<Message>();
 		this.topic=top;
 		this.description=about;
 		this.members = new ArrayList<User>();		
@@ -30,14 +33,20 @@ public class ChatRoom extends Thread {
 			System.out.println("[CHATROOM " + topic + "]: INITIALIZED ON PORT " + port);
 
 			Socket s;
+			final Message newMessage = new Message();
 			while((s=listener.accept()) != null){
 				System.out.println("[CHATROOM " + topic + "]: CLIENT RECIEVED");
-				Thread t = new TCPServerThread(s);
+				Thread t = new TCPServerThread(s, newMessage);
 				t.start();
+				t.join();
+				content.add(newMessage);
 			}
+			System.out.println("[CHATROOM " + topic + "]: NO MORE CLIENTS....");
 			listener.close();
 		} catch(IOException e){
 			System.err.println(e);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
 		}
 	}
 	public void join(User newU){
