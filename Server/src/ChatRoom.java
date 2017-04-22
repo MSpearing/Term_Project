@@ -33,13 +33,15 @@ public class ChatRoom extends Thread {
 			System.out.println("[CHATROOM " + topic + "]: INITIALIZED ON PORT " + port);
 
 			Socket s;
-			final Message newMessage = new Message();
+			Message newMessage = new Message();
 			while((s=listener.accept()) != null){
 				System.out.println("[CHATROOM " + topic + "]: CLIENT RECIEVED");
-				Thread t = new TCPServerThread(s, newMessage);
+				Thread t = new TCPServerThread(s, newMessage, content);
 				t.start();
 				t.join();
-				content.add(newMessage);
+				if(!newMessage.getUser().equals("GETALL")){
+					content.add(new Message(newMessage.getUser(), newMessage.getTime() + "", newMessage.getContent()));
+				}
 			}
 			System.out.println("[CHATROOM " + topic + "]: NO MORE CLIENTS....");
 			listener.close();

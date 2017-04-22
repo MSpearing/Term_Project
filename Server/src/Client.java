@@ -8,6 +8,7 @@ public class Client {
 		try{
 			String hostAddress;
 			int tcpPort;
+			int postsSeen = 0;
 
 			hostAddress = "localhost";//args[0];
 			tcpPort= 8080; //Integer.parseInt(args[1]);
@@ -46,6 +47,12 @@ public class Client {
 			//Socket server = new Socket(hostAddress, roomPort);
 			//PrintStream serverOut = new PrintStream(server.getOutputStream());
 			//Scanner serverIn = new Scanner(server.getInputStream());
+			ArrayList<Message> newPosts = updateFeed(postsSeen, hostAddress, roomPort);
+			postsSeen += newPosts.size();
+			System.out.println("[CLIENT]: NEW POSTS: ");
+			for(Message m : newPosts){
+				System.out.println("\t" + m.getTime() + "\t" + m.getUser() + "\t" + m.getContent());
+			}
 			System.out.println("[CLIENT]: WAITING FOR MESSAGE");
 			while(sc.hasNext()){
 				//System.out.println("inside while loop");
@@ -54,6 +61,12 @@ public class Client {
 				// TODO This works up to here
 				System.out.println("[CLIENT] POSTING: " +message);
 				tcpSend(message, hostAddress, roomPort);
+				newPosts = updateFeed(postsSeen, hostAddress, roomPort);
+				postsSeen += newPosts.size();
+				System.out.println("[CLIENT]: NEW POSTS: ");
+				for(Message m : newPosts){
+					System.out.println("\t" + m.getTime() + "\t" + m.getUser() + "\t" + m.getContent());
+				}
 				//System.out.println("[CLIENT] RECIEVED NEW: " + fromServer);
 			}
 			sc.close();
@@ -68,14 +81,43 @@ public class Client {
 
 	/// Parameters: (1) message to send (2) client's hostAddress (3) client's port
 	/// Returns: message received from Server
+
+	private static ArrayList<Message> updateFeed(int last, String host, int port) throws IOException{
+		ArrayList<Message> newMsg = new ArrayList<Message>();
+		Socket server = new Socket(host, port);
+		PrintStream pout = new PrintStream(server.getOutputStream());
+		Scanner serverIn = new Scanner(server.getInputStream());
+		System.out.println("[CLIENT]: CONNECTED TO ROOM");
+		pout.println(last);
+		pout.println("GETALL");
+		pout.flush();
+		
+		int numNew = serverIn.nextInt();
+		System.out.println("[CLIENT]: NEW POSTS TO READ: " + numNew);
+		serverIn.nextLine();
+		for(int i =0;i < numNew; i++){
+			Message m = new Message();
+			m.setTime(serverIn.nextLong());
+			serverIn.nextLine();
+			m.setUser(serverIn.nextLine());
+			m.setContent(serverIn.nextLine());
+			newMsg.add(m);
+		}
+		server.close();
+		pout.close();
+		serverIn.close();
+		return(newMsg);
+
+	}
+
 	private static void tcpSend(String msg, String hostAddress, int tcpPort)
 			throws IOException{
 		Socket server = new Socket(hostAddress, tcpPort);
 		PrintStream pout = new PrintStream(server.getOutputStream());
 		Scanner serverIn = new Scanner(server.getInputStream());
 		System.out.println("[CLIENT]: CONNECTED TO ROOM");
-		pout.println("Author 1");
 		pout.println(System.currentTimeMillis());
+		pout.println("Author 1");
 		pout.println(msg);
 		pout.flush();
 		serverIn.close();

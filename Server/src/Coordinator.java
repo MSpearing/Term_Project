@@ -2,11 +2,11 @@ import java.io.*;
 import java.net.*;
 
 public class Coordinator {
+	// All clients will be connected through this port initially
 	static final int landingPort = 8080;
 	static RoomList RL = new RoomList(landingPort);
 	static ActiveUsersList AUL = new ActiveUsersList();
 	public static void main(String args[]) throws InterruptedException{
-		// All clients will be connected through this port initially
 		RL.addRoom("Default");
 		Thread doorway = new Thread(){
 			public void run(){
