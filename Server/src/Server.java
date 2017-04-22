@@ -1,5 +1,4 @@
 import java.io.*;
-import java.util.*;
 import java.net.*;
 
 public class Server {
@@ -11,7 +10,7 @@ public class Server {
 		tcpPort = 6789;
 		
 		//declare any global variables here
-		final RoomList RL = new RoomList();
+		final RoomList RL = new RoomList(-1);
 		final ActiveUsersList AUL = new ActiveUsersList();
 		
 		Thread tcp = new Thread(){

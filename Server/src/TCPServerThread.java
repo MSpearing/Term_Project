@@ -14,6 +14,9 @@ public class TCPServerThread extends Thread{
 		this.allRooms=rl;
 		this.allUsers=aul;
 	}
+	public TCPServerThread(Socket s){
+		this.theClient = s;
+	}
 	
 	public void run(){
 		Scanner sc = null;
