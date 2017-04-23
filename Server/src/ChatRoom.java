@@ -39,7 +39,7 @@ public class ChatRoom extends Thread {
 				Thread t = new TCPServerThread(s, newMessage, content);
 				t.start();
 				t.join();
-				if(!newMessage.getUser().equals("GETALL")){
+				if(!newMessage.getUser().equals("GetALL")){
 					content.add(new Message(newMessage.getUser(), newMessage.getTime() + "", newMessage.getContent()));
 				}
 			}

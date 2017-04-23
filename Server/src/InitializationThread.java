@@ -45,8 +45,11 @@ public class InitializationThread extends Thread{
 			
 			// SEND THE CLIENT THE PORT TO CONNECT TO
 			System.out.println("[SALESREP]: DONE WITH CLIENT");
-			clientOut.println(allRooms.getPort(room));
+			int tmpPort = allRooms.getPort(room);
+			clientOut.println(tmpPort/*allRooms.getPort(room)*/);
 			clientOut.flush();
+			System.out.println("[SALESREP]: SENT CLIENT PORT NUMBER: " + tmpPort);
+			
 			
 			clientIn.close();
 			clientOut.close();

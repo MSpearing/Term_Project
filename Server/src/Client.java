@@ -31,6 +31,7 @@ public class Client {
 				room = greeterIn.nextLine();
 				System.out.println(room);
 			}
+			
 			//while(!sc.hasNext()){}
 			String input = sc.nextLine();
 			System.out.println(input);
@@ -89,7 +90,7 @@ public class Client {
 		Scanner serverIn = new Scanner(server.getInputStream());
 		System.out.println("[CLIENT]: CONNECTED TO ROOM");
 		pout.println(last);
-		pout.println("GETALL");
+		pout.println("GetALL");
 		pout.flush();
 		
 		int numNew = serverIn.nextInt();

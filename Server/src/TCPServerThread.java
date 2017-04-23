@@ -33,7 +33,7 @@ public class TCPServerThread extends Thread{
 			String author = sc.nextLine();
 			System.out.println("[TCPServer]: AUTHOR OF POST: "+author);
 			message.setUser(author);
-			if(author.equals("GETALL")){
+			if(author.equals("GetALL")){
 				System.out.println("[TCPServer]: NEW POSTS TO SEND: " + (allMessages.size() - (int)message.getTime()));
 				pout.println(allMessages.size() - (int)message.getTime());
 				pout.flush();
