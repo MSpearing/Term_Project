@@ -10,8 +10,8 @@ public class Client {
 			int tcpPort;
 			int postsSeen = 0;
 
-			hostAddress = "localhost";//args[0];
-			tcpPort= 8080; //Integer.parseInt(args[1]);
+			hostAddress = args[0];
+			tcpPort= Integer.parseInt(args[1]);
 			System.out.println("[CLIENT] DIRECTIONS RECIEVED: "+args[0] +":"+ args[1]);
 			Scanner sc = new Scanner(System.in);
 			//System.out.println("scanner initiated");
