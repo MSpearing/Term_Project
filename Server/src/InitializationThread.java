@@ -56,7 +56,11 @@ public class InitializationThread extends Thread{
 			theClient.close();
 		}
 		catch(IOException e){
+			System.out.println("[INIT THREAD]: BAD ERROR");
 			System.err.println(e);
+		} catch(Exception e){
+			System.out.println("[INIT THREAD]: CONNECTION LOST: CLIENT DISCONNECTED");
+			return;
 		}
 	}
 }
