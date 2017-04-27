@@ -20,6 +20,9 @@ public class Client {
 			Socket greeter = new Socket(hostAddress, tcpPort);
 			PrintStream greeterOut = new PrintStream(greeter.getOutputStream());
 			Scanner greeterIn = new Scanner(greeter.getInputStream());
+			
+			System.out.println("[CLIENT]: VERIFYING SELF");
+			greeterOut.println("4rfcsql7tgbnwrty3u21");
 
 			// Subscribe the client to a chat room
 			// Get the room, one per line

@@ -18,6 +18,15 @@ public class InitializationThread extends Thread{
 			// Connect the salesrep to the client
 			System.out.println("[SALESREP]: MAKING CONTACT");
 			Scanner clientIn = new Scanner(theClient.getInputStream());
+			System.out.println("[SALESREP]: VERIFYING CLIENT");
+			String passCode = clientIn.nextLine();
+			if(!passCode.equals("4rfcsql7tgbnwrty3u21")){
+				System.out.println("[SALESREP]: BE GONE!");
+				clientIn.close();
+				theClient.close();
+				return;
+			}
+			
 			PrintWriter clientOut = new PrintWriter(theClient.getOutputStream());
 			System.out.println("[SALESREP]: CONTACT MADE TO CLIENT");
 			
